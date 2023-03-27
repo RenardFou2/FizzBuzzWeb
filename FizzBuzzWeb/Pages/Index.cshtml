@@ -5,18 +5,17 @@ ViewData["Title"] = "Fizz Buzz";
 }
 <div class="text-center">
 <span asp-validation-for="FizzBuzz.Number" class="text-danger"></span>
-<h1 class="display-4">Welcome @Model.Name</h1>
+<h1 class="display-4">Welcome ziomek</h1>
 
 <form method="post">
 <label asp-for="FizzBuzz.Number"></label>
 <input asp-for="FizzBuzz.Number" />
 <br />
 <br />
-<button type="submit" onclick="valueHandler">Zatwierdź</button>
+<button type="submit" onclick="valueHandler">Zatwierdź</button> 
 <br />
-<div class="alert alert-success" role="alert" id="MyAlert" runat="server" visible="false">
-example;
-</div>
+<br />
+<div>@Model.Fizzy</div>
 </form>
 
 </div>

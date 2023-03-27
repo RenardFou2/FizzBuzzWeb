@@ -1,52 +1,48 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using FizzBuzzWeb.Forms;
+using System.Data;
 
 namespace FizzBuzzWeb.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
-        public IActionResult OnPost()
-        {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-            return RedirectToPage("./Privacy");
-        }
-
         [BindProperty]
-        public FizzBuzzForm FizzBuzz { get; set; }
+        public String Fizzy { get; set; }
 
-        [BindProperty(SupportsGet = true)]
-
-        public String Name { get; set; }
-
-        public void valueHandler(object sender, EventArgs e)
+        private readonly ILogger<IndexModel> _logger;
+        public void OnPost()
         {
-            if (FizzBuzz.Number == 2)
+            //int? x = FizzBuzz.Number;
+            if (FizzBuzz.Number % 3 == 0)
             {
-                MyAlert.Visible = true;
+                Fizzy = "Fizz";
+            }
+            else if (FizzBuzz.Number % 5 == 0)
+            {
+                Fizzy = "Buzz";
+            }
+            else if (FizzBuzz.Number % 3 == 0 && FizzBuzz.Number % 5 == 0)
+            {
+                Fizzy = "FizzBuzz";
             }
             else
             {
-                MyAlert.Visible = false;
+                Fizzy = $"Liczba {FizzBuzz.Number} nie zgadza się.";
             }
         }
+
+        [BindProperty]
+        public FizzBuzzForm? FizzBuzz { get; set; }
 
         public IndexModel(ILogger<IndexModel> logger)
         {
             _logger = logger;
         }
 
-
         public void OnGet()
         {
-            if (string.IsNullOrWhiteSpace(Name))
-            {
-                Name = "User";
-            }
+            Fizzy = "";
         }
     }
 }
