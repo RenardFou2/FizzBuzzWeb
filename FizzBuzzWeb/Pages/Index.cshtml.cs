@@ -14,17 +14,17 @@ namespace FizzBuzzWeb.Pages
         public void OnPost()
         {
             //int? x = FizzBuzz.Number;
-            if (FizzBuzz.Number % 3 == 0)
+            if (FizzBuzz.Number % 3 == 0 && FizzBuzz.Number % 5 == 0)
             {
-                Fizzy = "Fizz";
-            }
+				Fizzy = "FizzBuzz";
+			}
             else if (FizzBuzz.Number % 5 == 0)
             {
                 Fizzy = "Buzz";
             }
-            else if (FizzBuzz.Number % 3 == 0 && FizzBuzz.Number % 5 == 0)
+            else if (FizzBuzz.Number % 3 == 0)
             {
-                Fizzy = "FizzBuzz";
+                Fizzy = "Fizz";
             }
             else
             {
