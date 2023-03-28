@@ -16,8 +16,8 @@ namespace FizzBuzzWeb.Pages
             //int? x = FizzBuzz.Number;
             if (FizzBuzz.Number % 3 == 0 && FizzBuzz.Number % 5 == 0)
             {
-				Fizzy = "FizzBuzz";
-			}
+	    	Fizzy = "FizzBuzz";
+	    }
             else if (FizzBuzz.Number % 5 == 0)
             {
                 Fizzy = "Buzz";
