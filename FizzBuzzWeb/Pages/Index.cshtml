@@ -12,10 +12,10 @@ ViewData["Title"] = "Fizz Buzz";
 <input asp-for="FizzBuzz.Number" />
 <br />
 <br />
-<button type="submit" onclick="valueHandler">Zatwierdź</button> 
+<button type="submit" style="border-color: dodgerblue; background-color:dodgerblue; color:whitesmoke">Zatwierdź</button>
 <br />
 <br />
-<div>@Model.Fizzy</div>
+<div class="alert alert-success" role="alert"> @Model.Fizzy </div>
 </form>
 
 </div>
