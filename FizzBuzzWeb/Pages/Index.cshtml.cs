@@ -2,42 +2,31 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using FizzBuzzWeb.Forms;
 using System.Data;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 namespace FizzBuzzWeb.Pages
 {
     public class IndexModel : PageModel
     {
-        [BindProperty]
-        public String Fizzy { get; set; }
 
         private readonly ILogger<IndexModel> _logger;
         public IActionResult OnPost()
         {
-
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return Page();
+                HttpContext.Session.SetString("Data",
+                JsonConvert.SerializeObject(FizzBuzz));
+                return RedirectToPage("./SavedInSession");
             }
-
-            if (FizzBuzz.Number % 3 == 0)
-            {
-                Fizzy += "Fizz";
-            }
-            if (FizzBuzz.Number % 5 == 0)
-            {
-                Fizzy += "Buzz";
-            }
-            if (FizzBuzz.Number % 3 != 0 && FizzBuzz.Number % 5 != 0)
-            {
-                Fizzy = $"Liczba {FizzBuzz.Number} nie zgadza się.";
-            }
-
             return Page();
         }
 
         [BindProperty]
         public FizzBuzzForm? FizzBuzz { get; set; }
+        public int? listSize { get; set; } 
 
+        public List<int?> listaNumbr = new List<int?>();
         public IndexModel(ILogger<IndexModel> logger)
         {
             _logger = logger;
@@ -45,7 +34,7 @@ namespace FizzBuzzWeb.Pages
 
         public void OnGet()
         {
-            Fizzy = "";
+            listSize = 0;
         }
     }
 }
