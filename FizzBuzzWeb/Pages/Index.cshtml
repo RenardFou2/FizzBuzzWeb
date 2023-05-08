@@ -1,21 +1,28 @@
 ﻿@page
 @model IndexModel
 @{
-ViewData["Title"] = "Fizz Buzz";
+    ViewData["Title"] = "Sprawdzenie, czy rok jest przestępny";
 }
 <div class="text-center">
-<span asp-validation-for="FizzBuzz.Number" class="text-danger"></span>
-<h1 class="display-4">Welcome ziomek</h1>
-
-<form method="post">
-<label asp-for="FizzBuzz.Number"></label>
-<input asp-for="FizzBuzz.Number" />
-<br />
-<br />
-<button type="submit" style="border-color: dodgerblue; background-color:dodgerblue; color:whitesmoke">Zatwierdź</button>
-</form>
-    <br />
-    <br />
-    @Model.listSize
+    <form method="post">
+        <div>
+            <label for="Year">Rok urodzenia:</label>
+            <input type="number" id="Year" name="Input.Year" min="1870" max="2023" required />
+            <span asp-validation-for="Input.Year" class="text-danger"></span>
+            <label for="Name">Imię:</label>
+            <input type="text" id="Name" name="Input.Name" maxlength="64" required />
+            <span asp-validation-for="Input.Name" class="text-danger"></span>
+            <br />
+            <br />
+        </div>
+        <button type="submit">Confirm</button>
+    </form>
+    @if (Model.Result != null)
+    {
+        <p class="text-success">@Model.Result</p>
+    }
+    <div>
+        <br />
+        <a asp-page="./SavedInSession">Poprzednie wyniki</a>
+    </div>
 </div>
-

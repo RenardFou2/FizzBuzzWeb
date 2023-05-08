@@ -1,14 +1,13 @@
 ﻿@page
 @model SavedInSessionModel
 @{
-    ViewData["Title"] = "Data in session";
+ViewData["Title"] = "Data in session";
 }
 <p>Dane w zapisane w sesji</p>
-@if (Model.FizzBuzz != null)
-{
-    <p>
-        @Html.DisplayNameFor(model => Model.FizzBuzz.Number):
-        @Model.FizzBuzz.Number
-    </p>
-}
+<ul>
+    @foreach (var item in Model.FizzBuzzList)
+    {
+        <li>@item.Name, @item.Year - @(item.Year % 4 == 0 && (item.Year % 100 != 0 || item.Year % 400 == 0) ? "rok przestępny" : "nie jest rokiem przestępnym")</li>
+    }
+</ul>
 

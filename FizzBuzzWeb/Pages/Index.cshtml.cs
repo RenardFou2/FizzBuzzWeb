@@ -1,40 +1,49 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using FizzBuzzWeb.Forms;
-using System.Data;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using FizzBuzzWeb.Forms;
+using System.Xml.Linq;
+
 
 namespace FizzBuzzWeb.Pages
 {
     public class IndexModel : PageModel
     {
-
         private readonly ILogger<IndexModel> _logger;
-        public IActionResult OnPost()
-        {
-            if (ModelState.IsValid)
-            {
-                HttpContext.Session.SetString("Data",
-                JsonConvert.SerializeObject(FizzBuzz));
-                return RedirectToPage("./SavedInSession");
-            }
-            return Page();
-        }
 
         [BindProperty]
-        public FizzBuzzForm? FizzBuzz { get; set; }
-        public int? listSize { get; set; } 
+        public FizzBuzzForm Input { get; set; }
 
-        public List<int?> listaNumbr = new List<int?>();
-        public IndexModel(ILogger<IndexModel> logger)
-        {
-            _logger = logger;
-        }
+        [TempData]
+        public string Result { get; set; }
 
         public void OnGet()
         {
-            listSize = 0;
+        }
+
+        public void OnPost()
+        {
+            if (ModelState.IsValid)
+            {
+                if (Input.Year % 4 == 0 && (Input.Year % 100 != 0 || Input.Year % 400 == 0))
+                {
+                    Result = $"{Input.Year} jest rokiem przestępnym.";
+                }
+                else
+                {
+                    Result = $"{Input.Year} NIE jest rokiem przestępnym";
+                }
+
+                var fizzBuzzList = new List<FizzBuzzForm>();
+                var data = HttpContext.Session.GetString("FizzBuzz");
+                if (!string.IsNullOrEmpty(data))
+                {
+                    fizzBuzzList = JsonConvert.DeserializeObject<List<FizzBuzzForm>>(data);
+                }
+                fizzBuzzList.Add(Input);
+                HttpContext.Session.SetString("FizzBuzz", JsonConvert.SerializeObject(fizzBuzzList));
+            }
         }
     }
 }
